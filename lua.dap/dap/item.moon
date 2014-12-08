@@ -1,6 +1,21 @@
 class Item
     new: (path) =>
         @path = path
+        @request_handlers = {}
+
+        @event_listeners = []
+        @request_listeners = []
+        @response_listeners = []
+
+        @bool_listeners = []
+        @int_listeners = []
+        @long_listeners = []
+        @float_listeners = []
+        @double_listeners = []
+        @string_listeners = []
+
+    fire_event: (channelPath, evt) =>
+        return dap.fire_event(@path, channelPath, evt)
 
     --SILP: ITEM_TYPE(bool, false)
     add_bool: (propertyPath, value=false) =>                          --__SILP__
