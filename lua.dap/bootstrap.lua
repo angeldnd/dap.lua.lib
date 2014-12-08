@@ -1,3 +1,3 @@
 require "moonscript"
-require "dap.init"
+require "dap"
 require "init"
