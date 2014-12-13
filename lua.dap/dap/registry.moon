@@ -57,21 +57,6 @@ clone_item = (item_path, to_path) ->
 -- There are exported as global, though shouldn't be used directly
 -- in lua/moon
 
-export _dap_on_event = (item_path, channel_path, evt) ->
-    item = get_item(item_path)
-    if item != nil
-        item\_on_event(channel_path, evt)
-
-export _dap_on_request = (item_path, handler_path, req) ->
-    item = get_item(item_path)
-    if item != nil
-        item\_on_request(handler_path, req)
-
-export _dap_on_response = (item_path, handler_path, req, res) ->
-    item = get_item(item_path)
-    if item != nil
-        item\_on_response(handler_path, req, res)
-
 export _dap_do_handle = (item_path, handler_path, req) ->
     item = get_item(item_path)
     if item != nil
@@ -79,37 +64,56 @@ export _dap_do_handle = (item_path, handler_path, req) ->
     else
         return {}
 
---SILP: REGISTERY_WATCH_TYPE(bool)
+--SILP: REGISTRY_ON(event, channel_path, evt)
+export _dap_on_event = (item_path, channel_path, evt) ->              --__SILP__
+    item = get_item(item_path, nil)                                   --__SILP__
+    if item != nil                                                    --__SILP__
+        item\_on_event(channel_path, evt)                             --__SILP__
+                                                                      --__SILP__
+--SILP: REGISTRY_ON(request, handler_path, req)
+export _dap_on_request = (item_path, handler_path, req) ->            --__SILP__
+    item = get_item(item_path, nil)                                   --__SILP__
+    if item != nil                                                    --__SILP__
+        item\_on_request(handler_path, req)                           --__SILP__
+                                                                      --__SILP__
+--SILP: REGISTRY_ON2(response, handler_path, req, res)
+export _dap_on_response = (item_path, handler_path, req, res) ->      --__SILP__
+    item = get_item(item_path, nil)                                   --__SILP__
+    if item != nil                                                    --__SILP__
+        item\_on_response(handler_path, req, res)                     --__SILP__
+                                                                      --__SILP__
+
+--SILP: REGISTRY_WATCH_TYPE(bool)
 export _dap_on_bool_changed = (item_path, property_path, last_value, value) -> --__SILP__
     item = get_item(item_path, nil)                                            --__SILP__
     if item != nil                                                             --__SILP__
         item\_on_%{type}_changed(property_path, last_value, value)             --__SILP__
                                                                                --__SILP__
---SILP: REGISTERY_WATCH_TYPE(int)
+--SILP: REGISTRY_WATCH_TYPE(int)
 export _dap_on_int_changed = (item_path, property_path, last_value, value) -> --__SILP__
     item = get_item(item_path, nil)                                           --__SILP__
     if item != nil                                                            --__SILP__
         item\_on_%{type}_changed(property_path, last_value, value)            --__SILP__
                                                                               --__SILP__
---SILP: REGISTERY_WATCH_TYPE(long)
+--SILP: REGISTRY_WATCH_TYPE(long)
 export _dap_on_long_changed = (item_path, property_path, last_value, value) -> --__SILP__
     item = get_item(item_path, nil)                                            --__SILP__
     if item != nil                                                             --__SILP__
         item\_on_%{type}_changed(property_path, last_value, value)             --__SILP__
                                                                                --__SILP__
---SILP: REGISTERY_WATCH_TYPE(float)
+--SILP: REGISTRY_WATCH_TYPE(float)
 export _dap_on_float_changed = (item_path, property_path, last_value, value) -> --__SILP__
     item = get_item(item_path, nil)                                             --__SILP__
     if item != nil                                                              --__SILP__
         item\_on_%{type}_changed(property_path, last_value, value)              --__SILP__
                                                                                 --__SILP__
---SILP: REGISTERY_WATCH_TYPE(double)
+--SILP: REGISTRY_WATCH_TYPE(double)
 export _dap_on_double_changed = (item_path, property_path, last_value, value) -> --__SILP__
     item = get_item(item_path, nil)                                              --__SILP__
     if item != nil                                                               --__SILP__
         item\_on_%{type}_changed(property_path, last_value, value)               --__SILP__
                                                                                  --__SILP__
---SILP: REGISTERY_WATCH_TYPE(string)
+--SILP: REGISTRY_WATCH_TYPE(string)
 export _dap_on_string_changed = (item_path, property_path, last_value, value) -> --__SILP__
     item = get_item(item_path, nil)                                              --__SILP__
     if item != nil                                                               --__SILP__

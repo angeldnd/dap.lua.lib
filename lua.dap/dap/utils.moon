@@ -1,9 +1,9 @@
 --  Created by YJ Park on 14/12/01.
 --  Copyright (c) 2014年 AngelDnD. All rights reserved.
 
-get_index = (list, element) ->
+get_index = (list, obj) ->
     for i, v in ipairs list
-        if v == element
+        if v == obj
             return i
     return nil
 
