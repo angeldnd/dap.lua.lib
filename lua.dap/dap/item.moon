@@ -22,6 +22,16 @@ class Item
     fire_event: (channel_path, evt) ->
         return _dap.fire_event(@path, channel_path, evt)
 
+    handle_request: (handler_path, req) ->
+        return _dap.handle_request(@path, handler_path, req)
+
+    _do_handle: (handler_path, req) ->
+        handler = @request_listeners[handler_path]
+        if handler != nil
+            return handler(req, handler_path, self)
+        else
+            return {}
+
     --SILP: ITEM_CHANNEL(channel, channel_path)
     add_channel: (channel_path) ->                                    --__SILP__
         return _dap.add_channel(@path, channel_path)                  --__SILP__
