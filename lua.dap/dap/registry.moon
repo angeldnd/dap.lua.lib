@@ -6,6 +6,17 @@ import is_instance, is_class from require "dap.utils"
 
 _items = {}
 
+-- convinience method, try get_item first, if not there, try add_item
+use_item = (item_path, cls=Item) ->
+    if !is_class(cls, Item)
+        return nil
+
+    item = get_item(item_path, cls)
+    if item == nil && _items[item_path] == nil && add_item(item_path, cls)
+        item = get_item(item_path, cls)
+
+    return item
+
 get_item = (item_path, cls=nil) ->
     item = _items[item_path]
     if item == nil
@@ -29,17 +40,6 @@ add_item = (item_path, cls=Item) ->
 
     return result
     
--- convinience method, try get_item first, if not there, try add_item
-use_item = (item_path, cls=Item) ->
-    if !is_class(cls, Item)
-        return nil
-
-    item = get_item(item_path, cls)
-    if item == nil && _items[item_path] == nil && add_item(item_path, cls)
-        item = get_item(item_path, cls)
-
-    return item
-
 remove_item = (item_path) ->
     _items[item_path] = nil
     return _dap.remove_item(item_path)
@@ -120,4 +120,4 @@ export _dap_on_string_changed = (item_path, property_path, last_value, value) ->
         item\_on_%{type}_changed(property_path, last_value, value)               --__SILP__
                                                                                  --__SILP__
 
-{ :get_item :add_item :use_item :remove_item :clone_item }
+{ :use_item :get_item :add_item :remove_item :clone_item }
