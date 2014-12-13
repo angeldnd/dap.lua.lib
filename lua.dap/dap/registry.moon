@@ -12,7 +12,7 @@ use_item = (item_path, cls=Item) ->
         return nil
 
     item = get_item(item_path, cls)
-    if item == nil && _items[item_path] == nil && add_item(item_path, cls)
+    if item == nil and _items[item_path] == nil and add_item(item_path, cls)
         item = get_item(item_path, cls)
 
     return item
@@ -20,7 +20,7 @@ use_item = (item_path, cls=Item) ->
 get_item = (item_path, cls=nil) ->
     item = _items[item_path]
     if item == nil
-        if cls != nil && is_class(cls, Item)
+        if cls != nil and is_class(cls, Item)
             if _dap.is_item(item_path, cls.dap_type)
                 item = cls(item_path)
                 _items[item_path] = item
